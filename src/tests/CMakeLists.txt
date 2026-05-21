@@ -1,12 +1,14 @@
 project(tests)
 
-add_executable(${PROJECT_NAME} tests.cpp)
+add_executable(${PROJECT_NAME}
+  #lexerTests.cpp
+  #tokenTests.cpp
+  parserTests.cpp
+)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   lib
-  gtest
-  gmock 
-  gtest_main
+  UnitTest
 )
