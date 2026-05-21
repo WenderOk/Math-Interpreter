@@ -6,37 +6,37 @@
 ////////////////
 
 // 1 //
-TEST(LexerTests, Return_empty_token_list_when_empty_expression)
+TEST("Return_empty_token_list_when_empty_expression")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("") };
     CONFIRM(true, tokens.empty());
 }
 
 // 2 //
-TEST(LexerTests, Return_op_token_list_when_empty_expression)
+TEST("Return_op_token_list_when_empty_expression")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("+") };
-    CONFIRM(1, tokens.size());
+    CONFIRM(1, (int)tokens.size());
     CONFIRM("+", tokens[0].getContent());
 }
 
 // 3 //
-TEST(LexerTests, Should_tokenize_single_digit)
+TEST("Should_tokenize_single_digit")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("1") };
-    CONFIRM(1, tokens.size());
+    CONFIRM(1, (int)tokens.size());
     CONFIRM("1", tokens[0].getContent());
 }
 
 // 4 //
-TEST(LexerTests, Should_tokenize_floating_point_number)
+TEST("Should_tokenize_floating_point_number")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("12.34") };
     CONFIRM("12.34", tokens[0].getContent());
 }
 
 // 5 //
-TEST(LexerTests, Should_tokenize_plus_and_number)
+TEST("Should_tokenize_plus_and_number")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("+12.34") };
     CONFIRM("+", tokens[0].getContent());
@@ -44,7 +44,7 @@ TEST(LexerTests, Should_tokenize_plus_and_number)
 }
 
 // 6 //
-TEST(LexerTests, Should_skip_spaces)
+TEST("Should_skip_spaces")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize(" 1 +  12.34  ") };
     CONFIRM("1", tokens[0].getContent());
@@ -53,7 +53,7 @@ TEST(LexerTests, Should_skip_spaces)
 }
 
 // 7 //
-TEST(LexerTests, Should_tokenize_complex_experssion)
+TEST("Should_tokenize_complex_experssion")
 {
     Interpreter::Tokens tokens(Interpreter::Lexer::Tokenize("1+2*3/(4-5)"));
     CONFIRM("1", tokens[0].getContent());
