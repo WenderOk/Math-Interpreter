@@ -1,9 +1,10 @@
 project(tests)
 
 add_executable(${PROJECT_NAME}
-  #lexerTests.cpp
-  #tokenTests.cpp
+  lexerTests.cpp
+  tokenTests.cpp
   parserTests.cpp
+  Tests.cpp
 )
 
 set(CMAKE_CXX_STANDARD 20)
