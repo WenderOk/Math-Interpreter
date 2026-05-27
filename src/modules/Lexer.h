@@ -27,17 +27,19 @@ namespace Interpreter
         explicit Token(std::string cont): content{cont}
         {
             if(cont == std::string{ Operator::Plus } || 
-               cont == std::string{ Operator::Minus ||
+               cont == std::string{ Operator::Minus} ||
                cont == std::string{ Operator::Mult } ||
-               cont == std::string{ Operator::Div }}) type = TokenType::Operator;
-            else type = TokenType::Unknown;
+               cont == std::string{ Operator::Div }) 
+                type = TokenType::Operator;
+            else 
+                type = TokenType::Unknown;
          }
         explicit Token(double num): content{ std::to_string(num) }, type{ TokenType::Number }
         {
             content.erase(content.find_last_not_of('0') + 1, std::string::npos);
             if(content.back() == '.') content.pop_back();
         }
-        explicit Token(Operator op): type{TokenType::Number}
+        explicit Token(Operator op): type{TokenType::Operator}
         {
             if(op == Operator::Plus) content = std::string{Operator::Plus};
             if(op == Operator::Minus) content = std::string{Operator::Minus};
