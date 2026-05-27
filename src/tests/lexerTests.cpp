@@ -5,15 +5,23 @@
 // LexerTests //
 ////////////////
 
+// === EmptyPolicy — для наборов тестов без setup/teardown ===
+struct EmptyPolicy {
+    void setup() {}
+    void teardown() {}
+};
+
+static MereTDD::TestSuiteSetupAndTeardown<EmptyPolicy> gLexerSuite("Lexer Tests", "Lexer");
+
 // 1 //
-TEST("Return_empty_token_list_when_empty_expression")
+TEST_SUITE("Return_empty_token_list_when_empty_expression", "Lexer")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("") };
     CONFIRM(true, tokens.empty());
 }
 
 // 2 //
-TEST("Return_op_token_list_when_empty_expression")
+TEST_SUITE("Return_op_token_list_when_empty_expression", "Lexer")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("+") };
     CONFIRM(1, (int)tokens.size());
@@ -21,7 +29,7 @@ TEST("Return_op_token_list_when_empty_expression")
 }
 
 // 3 //
-TEST("Should_tokenize_single_digit")
+TEST_SUITE("Should_tokenize_single_digit", "Lexer")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("1") };
     CONFIRM(1, (int)tokens.size());
@@ -29,14 +37,14 @@ TEST("Should_tokenize_single_digit")
 }
 
 // 4 //
-TEST("Should_tokenize_floating_point_number")
+TEST_SUITE("Should_tokenize_floating_point_number", "Lexer")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("12.34") };
     CONFIRM("12.34", tokens[0].getContent());
 }
 
 // 5 //
-TEST("Should_tokenize_plus_and_number")
+TEST_SUITE("Should_tokenize_plus_and_number", "Lexer")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize("+12.34") };
     CONFIRM("+", tokens[0].getContent());
@@ -44,7 +52,7 @@ TEST("Should_tokenize_plus_and_number")
 }
 
 // 6 //
-TEST("Should_skip_spaces")
+TEST_SUITE("Should_skip_spaces", "Lexer")
 {
     Interpreter::Tokens tokens{ Interpreter::Lexer::Tokenize(" 1 +  12.34  ") };
     CONFIRM("1", tokens[0].getContent());
@@ -53,7 +61,7 @@ TEST("Should_skip_spaces")
 }
 
 // 7 //
-TEST("Should_tokenize_complex_experssion")
+TEST_SUITE("Should_tokenize_complex_experssion", "Lexer")
 {
     Interpreter::Tokens tokens(Interpreter::Lexer::Tokenize("1+2*3/(4-5)"));
     CONFIRM("1", tokens[0].getContent());
