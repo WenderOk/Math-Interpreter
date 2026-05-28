@@ -36,3 +36,11 @@ TEST_SUITE("Should_parse_num_plus_num", "Parser")
     Tokens expected = { Token(1), Token(2), Token(Operator::Plus) };
     CONFIRM( expected, tokens );
 }
+
+// 4 //
+TEST_SUITE("Should_parse_two_additions", "Parser")
+{
+    Tokens tokens = Parser::Parse({ Token(1), Token(Operator::Plus), Token(2), Token(Operator::Plus), Token(3) });
+    Tokens expected = { Token(1), Token(2), Token(Operator::Plus), Token(3), Token(Operator::Plus) };
+    CONFIRM( expected, tokens );
+}
