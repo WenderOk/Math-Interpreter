@@ -2,6 +2,7 @@
 
 #include <exception>
 #include <iterator>
+#include <stdexcept>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -57,7 +58,7 @@ namespace Interpreter
             if(type != TokenType::Operator) throw std::logic_error("Should be operator token.");
             return static_cast<Operator>(content[0]);
         }
-        
+
         std::string getContent() const
         { return content; }
         TokenType Type() const
@@ -105,38 +106,78 @@ namespace Interpreter
         }
     }
 
-    namespace Parser 
+    
+    namespace Detail
     {
         inline int PrecedenceOf(Operator op) 
         { return (op == Operator::Mult || op == Operator::Div) ? 1 : 0; }
 
-        inline Tokens Parse(const Tokens &tokens) 
+        class ShuntingYardParser
         {
+            Tokens::const_iterator current;
+            Tokens::const_iterator end;
             Tokens output;
             Tokens stack;
-            auto popToOutput = [&output, &stack](auto whenToEnd) 
+
+            static bool StackIsEmpty() { return false; }
+            void ParseCurrentToken()
             {
-                while( !stack.empty() && !whenToEnd(stack.back()) )
+                switch(current->Type())
+                {
+                case TokenType::Operator:
+                    ParseOperator();
+                    break;
+                case TokenType::Number:
+                    ParseNumber();
+                    break;
+                default:
+                    throw std::out_of_range("TokenType");
+                }
+            }
+
+            void ParseOperator() 
+            {
+                PopToOutputUntil([this]() { return PrecedenceOf(stack.back()) < PrecedenceOf(*current); });
+                stack.push_back(*current);
+            }
+
+            void ParseNumber() 
+            {
+                output.push_back(*current);
+            }
+
+            template<class T>
+            void PopToOutputUntil(T whenToEnd) 
+            {
+                while(!stack.empty() && !whenToEnd()) 
                 {
                     output.push_back(stack.back());
                     stack.pop_back();
                 }
-            };
+            }            
+        public:
+            ShuntingYardParser(const Tokens &tokens) : current(tokens.cbegin()), end(tokens.cend()) 
+            {}
 
-            for(const Token &current : tokens)
+            void Parse() 
             {
-                if(current.Type() == TokenType::Operator)
-                {
-                    popToOutput( [&](Operator top){ return PrecedenceOf(top) < PrecedenceOf(current); } );
-                    stack.push_back(current);
-                    continue;
-                }
-                output.push_back(current);
+                for(; current != end; ++current) 
+                    ParseCurrentToken();
+                
+                PopToOutputUntil(StackIsEmpty);
             }
-            popToOutput([](auto) { return false; });
-            return output; 
-        }
 
-        
+            const Tokens &Result() const { return output; }
+        };
+    } // namespace Detail
+
+    namespace Parser 
+    {
+        inline Tokens Parse(const Tokens &tokens) 
+        {
+            Detail::ShuntingYardParser parser(tokens);
+            parser.Parse();
+            return parser.Result();
+        }
     } // namespace Parser
 }
