@@ -107,7 +107,7 @@ namespace Interpreter
             return output; 
         }
 
-        inline int PrecedenceOf(Operator) 
-        { return 0; }
+        inline int PrecedenceOf(Operator op) 
+        { return (op == Operator::Mult || op == Operator::Div) ? 1 : 0; }
     } // namespace Parser
 }
