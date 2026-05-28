@@ -44,3 +44,10 @@ TEST_SUITE("Should_parse_two_additions", "Parser")
     Tokens expected = { Token(1), Token(2), Token(Operator::Plus), Token(3), Token(Operator::Plus) };
     CONFIRM( expected, tokens );
 }
+
+// 5 //
+TEST_SUITE("Should_get_same_precedence_for_operator_pairs", "Parser")
+{
+    CONFIRM( Parser::PrecedenceOf(Operator::Plus), Parser::PrecedenceOf(Operator::Minus) );
+    CONFIRM( Parser::PrecedenceOf(Operator::Mult), Parser::PrecedenceOf(Operator::Div) );
+}
