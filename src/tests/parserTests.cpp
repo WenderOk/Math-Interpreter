@@ -19,19 +19,20 @@ using namespace Interpreter;
 TEST_SUITE("Should_return_empty_list_when_put_empty_list", "Parser")
 {
     Tokens tokens = Parser::Parse({});
-    CONFIRM(true, tokens.empty());
+    CONFIRM( true, tokens.empty() );
 }
 
 // 2 //
 TEST_SUITE("Should_parse_single_number", "Parser")
 {
     Tokens tokens = Parser::Parse({Token(1)});
-    CONFIRM({Token(1)}, tokens);
+    CONFIRM( {Token(1)}, tokens );
 }
 
-// 2 //
+// 3 //
 TEST_SUITE("Should_parse_num_plus_num", "Parser")
 {
     Tokens tokens = Parser::Parse({ Token(1), Token(Operator::Plus), Token(2) });
-    CONFIRM({ Token(1), Token(2), Token(Operator::Plus) }, tokens);
+    Tokens expected = { Token(1), Token(2), Token(Operator::Plus) };
+    CONFIRM( expected, tokens );
 }
