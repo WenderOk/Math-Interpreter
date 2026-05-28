@@ -48,14 +48,14 @@ TEST_SUITE("Should_parse_two_additions", "Parser")
 // 5 //
 TEST_SUITE("Should_get_same_precedence_for_operator_pairs", "Parser")
 {
-    CONFIRM( Parser::PrecedenceOf(Operator::Plus), Parser::PrecedenceOf(Operator::Minus) );
-    CONFIRM( Parser::PrecedenceOf(Operator::Mult), Parser::PrecedenceOf(Operator::Div) );
+    CONFIRM( Detail::PrecedenceOf(Operator::Plus), Detail::PrecedenceOf(Operator::Minus) );
+    CONFIRM( Detail::PrecedenceOf(Operator::Mult), Detail::PrecedenceOf(Operator::Div) );
 }
 
 // 6 //
 TEST_SUITE("Should_get_greater_precedence_for_multiplicative_operators", "Parser")
 {
-    CONFIRM( true, Parser::PrecedenceOf(Operator::Mult) > Parser::PrecedenceOf(Operator::Plus) );
+    CONFIRM( true, Detail::PrecedenceOf(Operator::Mult) > Detail::PrecedenceOf(Operator::Plus) );
 }
 
 // 7 //
