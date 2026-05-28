@@ -1,5 +1,6 @@
 #pragma once
 
+#include <exception>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -46,6 +47,8 @@ namespace Interpreter
             if(op == Operator::Mult) content = std::string{Operator::Mult};
             if(op == Operator::Div) content = std::string{Operator::Div};
         }
+        bool operator==(const Token& t) const
+        { return (type == t.type) && (content == t.content); }
         std::string getContent() const
         { return content; }
         TokenType getType() const
@@ -77,4 +80,10 @@ namespace Interpreter
             return listTokens;
         }
     }
+
+    namespace Parser 
+    {
+        inline Tokens Parse(const Tokens &) 
+        { throw std::exception(); }
+    } // namespace Parser
 }
