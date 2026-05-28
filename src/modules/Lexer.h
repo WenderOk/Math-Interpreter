@@ -83,7 +83,7 @@ namespace Interpreter
 
     namespace Parser 
     {
-        inline Tokens Parse(const Tokens &) 
-        { throw std::exception(); }
+        inline Tokens Parse(const Tokens &tokens) 
+        { return tokens; }
     } // namespace Parser
 }
