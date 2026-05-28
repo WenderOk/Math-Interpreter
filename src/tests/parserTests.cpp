@@ -65,3 +65,18 @@ TEST_SUITE("Should_parse_add_and_mul", "Parser")
     Tokens expected = { Token(1), Token(2), Token(3), Token(Operator::Mult), Token(Operator::Plus) };
     CONFIRM( expected, tokens );
 }
+
+// 8 //
+TEST_SUITE("Should_parse_complex_experssion", "Parser")
+{
+    Tokens tokens = Parser::Parse({
+        Token(1), Token(Operator::Plus), Token(2), Token(Operator::Div), Token(3),
+        Token(Operator::Minus), Token(4), Token(Operator::Mult), Token(5)
+    });
+    Tokens expected = 
+    {
+        Token(1), Token(2), Token(3), Token(Operator::Div), Token(Operator::Plus),
+        Token(4), Token(5), Token(Operator::Mult), Token(Operator::Minus)
+    };
+    CONFIRM( expected, tokens );
+}
