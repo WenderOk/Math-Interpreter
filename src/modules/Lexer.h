@@ -1,6 +1,7 @@
 #pragma once
 
 #include <exception>
+#include <iterator>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -51,7 +52,7 @@ namespace Interpreter
         { return (type == t.type) && (content == t.content); }
         std::string getContent() const
         { return content; }
-        TokenType getType() const
+        TokenType Type() const
         { return type; }
     };
 
@@ -84,6 +85,18 @@ namespace Interpreter
     namespace Parser 
     {
         inline Tokens Parse(const Tokens &tokens) 
-        { return tokens; }
+        {
+            Tokens output;
+            Tokens stack;
+            for(const Token &token : tokens)
+            {
+                if(token.Type() == TokenType::Number)
+                    output.push_back(token);
+                else
+                    stack.push_back(token);
+            }
+            std::copy(stack.crbegin(), stack.crend(), std::back_inserter(output));
+            return output; 
+        }
     } // namespace Parser
 }
