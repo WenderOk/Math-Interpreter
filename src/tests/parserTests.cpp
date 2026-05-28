@@ -62,6 +62,6 @@ TEST_SUITE("Should_get_greater_precedence_for_multiplicative_operators", "Parser
 TEST_SUITE("Should_parse_add_and_mul", "Parser")
 {
     Tokens tokens = Parser::Parse({ Token(1), Token(Operator::Plus), Token(2), Token(Operator::Mult), Token(3) });
-    Tokens expected = { Token(1), Token(2), Token(Operator::Mult), Token(3), Token(Operator::Plus) };
+    Tokens expected = { Token(1), Token(2), Token(3), Token(Operator::Mult), Token(Operator::Plus) };
     CONFIRM( expected, tokens );
 }
