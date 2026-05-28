@@ -21,3 +21,9 @@ TEST_SUITE("Should_return_empty_list_when_put_empty_list", "Parser")
     Tokens tokens = Parser::Parse({});
     CONFIRM(true, tokens.empty());
 }
+
+TEST_SUITE("Should_parse_single_number", "Parser")
+{
+    Tokens tokens = Parser::Parse({Token(1)});
+    CONFIRM({Token(1)}, tokens);
+}
