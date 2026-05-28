@@ -106,5 +106,8 @@ namespace Interpreter
             popAll();
             return output; 
         }
+
+        inline int PrecedenceOf(Operator) 
+        { return 0; }
     } // namespace Parser
 }
