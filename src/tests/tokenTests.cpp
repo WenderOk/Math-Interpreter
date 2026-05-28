@@ -17,7 +17,7 @@ static MereTDD::TestSuiteSetupAndTeardown<EmptyPolicy> gTokensSuite("Tokens Test
 TEST_SUITE("Should_get_type_for_number_token", "Tokens")
 {
     Interpreter::Token numToken(1.2);
-    CONFIRM(Interpreter::TokenType::Number, numToken.getType());
+    CONFIRM(Interpreter::TokenType::Number, numToken.Type());
 }
 
 // 2 //
@@ -31,13 +31,13 @@ TEST_SUITE("Should_get_type_for_operator_token", "Tokens")
 TEST_SUITE("Should_get_operator_code_from_operator_token", "Tokens")
 {
     Interpreter::Token operToken("+");
-    CONFIRM(Interpreter::TokenType::Operator,operToken.getType());
+    CONFIRM(Interpreter::TokenType::Operator,operToken.Type());
 }
 
 // 4 //
 TEST_SUITE("Should_get_number_value_from_number_token", "Tokens")
 {
     Interpreter::Token numToken(1.23);
-    CONFIRM(Interpreter::TokenType::Number, numToken.getType());
+    CONFIRM(Interpreter::TokenType::Number, numToken.Type());
     CONFIRM("1.23", numToken.getContent());
 }
