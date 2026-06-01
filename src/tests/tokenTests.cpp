@@ -1,5 +1,5 @@
 #include "Test.h"
-#include "../modules/Lexer.h"
+#include "../modules/Interpreter.h"
 
 ////////////////
 // TokenTests //

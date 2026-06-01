@@ -1,5 +1,5 @@
 #include <string>
-#include "modules/Lexer.h"
+#include "modules/Interpreter.h"
 
 int main()
 {
