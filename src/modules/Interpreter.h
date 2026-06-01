@@ -59,25 +59,25 @@ namespace Interpreter
             return static_cast<Operator>(content[0]);
         }
 
-        std::string getContent() const
+        std::string Content() const
         { return content; }
         TokenType Type() const
         { return type; }
     };
 
-    inline std::ostream& operator<<(std::ostream& os, const Token& token) 
+    inline std::ostream& operator<<(std::ostream& out, const Token& token) 
     {
-        os << "Token{";
+        out << "{ ";
         switch(token.Type()) {
             case TokenType::Operator: 
-                os << "Operator:'" << token.getContent() << "'"; break;
+                out << "Operator: " << token.Content(); break;
             case TokenType::Number:   
-                os << "Number:" << token.getContent(); break;
+                out << "Number: " << token.Content(); break;
             case TokenType::Unknown:  
-                os << "Unknown:'" << token.getContent() << "'"; break;
+                out << "Unknown: " << token.Content(); break;
         }
-        os << "}";
-        return os;
+        out << " }";
+        return out;
     }
 
     typedef std::vector<Token> Tokens;
